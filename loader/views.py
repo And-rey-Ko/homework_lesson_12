@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, send_from_directory
 import logging
 
 loader_blueprint = Blueprint('loader_blueprint', __name__, template_folder='templates')
-
+logging.basicConfig(filename='basic.log', level=logging.INFO)
 
 @loader_blueprint.route("/post_form/", methods=["GET", "POST"])
 def page_post_form():
@@ -19,6 +19,7 @@ def page_post_upload():
     filename = pic.filename
     file_type = filename.split('.')[-1]
     if file_type not in ['jpeg', 'jpg', 'bmp', 'png']:
+        logging.info(f'Файл {pic.filename} - не изображение')
         return "Файл не картинка"
     pic.save(f"./uploads/images/{filename}")
     pic_path = f"/uploads/images/{filename}"

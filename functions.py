@@ -20,5 +20,9 @@ def post_upload(content, pic_path):
     posts = load_posts_from_json(POST_PATH)
     data = {"pic": pic_path, "content": content}
     posts.append(data)
-    with open(POST_PATH, 'w', encoding="utf-8") as f:
-        json.dump(posts, f, ensure_ascii=False, indent=2)
+    try:
+        with open(POST_PATH, 'w', encoding="utf-8") as f:
+            json.dump(posts, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return e
+
